@@ -6,10 +6,10 @@ exports.create = (req, res) => {
         });
     }
     const task = new Task({
-        TaskId: req.body.TaskId,
+        personId: req.body.personId,
         title: req.body.title,
         description: req.body.description,
-        taskStatus: req.body.taskStatusn,
+        taskStatus: req.body.taskStatus,
     });
     Task.create(task, (err, data) => {
         if (err)
@@ -52,7 +52,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    Task.findById(req.params.id, (err, data) => {
+    Task.getById(req.params.id, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
@@ -72,14 +72,14 @@ exports.delete = (req, res) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Not found data with id ${req.params.id}`,
+                    message: `Not found task with id ${req.params.id}.`,
                 });
             } else {
                 res.status(500).send({
-                    message: "Could not delete data with id " + req.params.id,
+                    message: "Could not delete task with id " + req.params.id,
                 });
             }
-        } else res.send({ message: `Data was delete successfully!` });
+        } else res.send({ message: `Task was deleted successfully!` });
     });
 };
 
