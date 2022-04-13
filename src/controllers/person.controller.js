@@ -51,7 +51,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    Person.findById(req.params.id, (err, data) => {
+    Person.getById(req.params.id, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
@@ -71,14 +71,14 @@ exports.delete = (req, res) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Not found data with id ${req.params.id}`,
+                    message: `Not found person with id ${req.params.id}.`,
                 });
             } else {
                 res.status(500).send({
-                    message: "Could not delete data with id " + req.params.id,
+                    message: "Could not delete person with id " + req.params.id,
                 });
             }
-        } else res.send({ message: `Data was delete successfully!` });
+        } else res.send({ message: `person was deleted successfully!` });
     });
 };
 
